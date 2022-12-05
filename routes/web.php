@@ -19,3 +19,12 @@ Route::get('/', function () {
 
 
 Route::match(['get', 'post'], '/admin/',[App\Http\Controllers\PracticeController::class,'exampleOne']);
+Route::match(['get', 'post'], '/catalog/',[App\Http\Controllers\PracticeController::class,'exampleOneCatalog']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

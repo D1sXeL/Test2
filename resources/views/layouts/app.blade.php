@@ -15,6 +15,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
     <div id="app">
@@ -23,11 +24,17 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <div class="d-flex justify-content-center col-lg-10 align-items-center pt-3">
+                    <ul class="d-flex justify-content-around align-items-center">
+                        <li class="px-5"><a href="/">О нас</a></li>
+                        <li class="px-5"><a href="/catalog">Каталог</a></li>
+                        <li class="px-5"><a href="/">Где нас найти?</a></li>
+                    </ul>
+                </div>
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                @yield('menu')
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
