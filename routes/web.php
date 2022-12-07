@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('practice.exampleOneIndex');
-});
+Route::get('/', [App\Http\Controllers\PracticeController::class, 'exampleOneIndex']);
 
 
 Route::match(['get', 'post'], '/admin/',[App\Http\Controllers\PracticeController::class,'exampleOne']);
 Route::match(['get', 'post'], '/catalog/',[App\Http\Controllers\PracticeController::class,'exampleOneCatalog']);
+Route::match(['get', 'post'], '/catalog/{id}',[App\Http\Controllers\PracticeController::class,'exampleOneCatalogId']);
+Route::get('/geolocation/', [App\Http\Controllers\PracticeController::class,'exampleOneGeolocation']);
 
 Auth::routes();
 

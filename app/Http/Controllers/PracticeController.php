@@ -8,6 +8,13 @@ use Cookie;
 
 class PracticeController extends Controller
 {
+    public function exampleOneIndex()
+    {
+        $data = json_decode(DB::table('products')->orderBy('created_at', 'asc')->limit(5)->get(), true);
+
+        return view('practice.exampleOneIndex', ['data'=>$data]);
+    }
+
     public function exampleOne(Request $req)
     {
         if($req->isMethod('Post') )
@@ -51,8 +58,31 @@ class PracticeController extends Controller
 
     public function exampleOneCatalog(Request $req)
     {
-        $data = json_decode(DB::table('products')->get(), true);
-        return view('practice.exampleOneCatalog', ['data'=>$data]);
+        $sort = $req->input('sorted');
+        if($sort == null)
+        {
+            $sort = "created_at";
+        }
+        elseif ($sort == "date") {
+            $sort = "created_at";
+        }
+        $optionSorted = $req->input('optionSorted');
+        if($optionSorted == null)
+        {
+            $optionSorted = "asc";
+        }
+        $data = json_decode(DB::table('products')->where('quantity', '>', '0')->orderBy($sort, $optionSorted)->get(), true);
+        return view('practice.exampleOneCatalog', ['data'=>$data, 'sort'=>$sort, 'optionSorted'=>$optionSorted]);
     }
 
+    public function exampleOneCatalogId(Request $req, $id)
+    {
+        $data = json_decode(DB::table('products')->get()->where("id", "=", $id), true);
+        return view('practice.exampleOneCatalogId', ['data'=>$data, 'id'=>$id]);
+    }
+
+    public function exampleOneGeolocation()
+    {
+        return view('practice.exampleOneGeolocation');
+    }
 }

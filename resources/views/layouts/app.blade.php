@@ -28,7 +28,7 @@
                     <ul class="d-flex justify-content-around align-items-center">
                         <li class="px-5"><a href="/">О нас</a></li>
                         <li class="px-5"><a href="/catalog">Каталог</a></li>
-                        <li class="px-5"><a href="/">Где нас найти?</a></li>
+                        <li class="px-5"><a href="/geolocation">Где нас найти?</a></li>
                     </ul>
                 </div>
                 
