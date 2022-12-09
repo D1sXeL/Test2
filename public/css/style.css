@@ -18,3 +18,8 @@ ul a{
 .max-size{
   max-height: 300px;
 }
+
+.sort-category{
+  border: 1px solid black;
+  border-radius: 10px;
+}

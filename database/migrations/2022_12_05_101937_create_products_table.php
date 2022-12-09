@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('img_path');
             $table->string('name');
             $table->string('antagonists');
-            $table->string('publisher');
+            $table->string('id_category');
             $table->integer('price');
             $table->integer('quantity');
         });

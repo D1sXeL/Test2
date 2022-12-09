@@ -24,6 +24,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                
                 <div class="d-flex justify-content-center col-lg-10 align-items-center pt-3">
                     <ul class="d-flex justify-content-around align-items-center">
                         <li class="px-5"><a href="/">О нас</a></li>

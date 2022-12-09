@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('FIO');
             $table->string('quantity');
             $table->string('status');
+            $table->string('reason_cancel');
         });
     }
 

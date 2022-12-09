@@ -24,12 +24,12 @@
 <section>
     <div class="container">    
         <div class="pt-5 d-flex justify-content-center flex-column align-items-center">
-            <img src="{{ $data[$id-1]['img_path'] }}" class="w-25 h-25" alt="">
-            <span>Название: {{$data[$id-1]['name']}}</span>
-            <span>Издатель: {{$data[$id-1]['publisher']}}</span>
-            <span>Дата добавления: {{$data[$id-1]['created_at']}}</span>
-            <span>Антагонист: {{$data[$id-1]['antagonists']}}</span>
-            <span>Цена: {{$data[$id-1]['price']}} рублей</span>
+            <img src="{{ $data[0]['img_path'] }}" class="w-25 h-25" alt="">
+            <span>Название: {{$data[0]['name']}}</span>
+            <span>Издатель: {{$data[0]['categoryName']}}</span>
+            <span>Дата добавления: {{$data[0]['created_at']}}</span>
+            <span>Антагонист: {{$data[0]['antagonists']}}</span>
+            <span>Цена: {{$data[0]['price']}} рублей</span>
         </div>
     </div>
 </section>  
