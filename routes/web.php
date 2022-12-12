@@ -17,15 +17,11 @@ Route::get('/', [App\Http\Controllers\PracticeController::class, 'exampleOneInde
 
 
 Route::match(['get', 'post'], '/admin/',[App\Http\Controllers\PracticeController::class,'exampleOne']);
-Route::get('/admin/add', [App\Http\Controllers\PracticeController::class,'exampleOneAdminAdd']);
+Route::match(['get', 'post'], '/admin/add', [App\Http\Controllers\PracticeController::class,'exampleOneAdminAdd']);
 Route::match(['get', 'post'], '/catalog/',[App\Http\Controllers\PracticeController::class,'exampleOneCatalog']);
 Route::match(['get', 'post'], '/catalog/{id}',[App\Http\Controllers\PracticeController::class,'exampleOneCatalogId']);
 Route::get('/geolocation/', [App\Http\Controllers\PracticeController::class,'exampleOneGeolocation']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\PracticeController::class, 'exampleOneIndex'])->name('home');

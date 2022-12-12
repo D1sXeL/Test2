@@ -3,7 +3,9 @@
 @parent
     <section>
         <div class="container">
-
+            @if(isset($data_basket))
+                {{$data_basket}}
+            @endif
             <div class="">
                 <div class="my-5">
                     <form method="post">
@@ -100,6 +102,9 @@
                         <span>Дата добавления: {{ $value['created_at'] }}</span>
                         <span>Количество: {{ $value['quantity'] }}</span>
                         <span><a href="/catalog/{{ $value['id'] }}">Подробнее</a></span>
+                        @if($data_cookie == 1)
+                            <span><a href="/catalog?basket_id={{ $value['id'] }}">В корзину</a></span>
+                        @endif
                     </div>
                 @endforeach
                 </div>
