@@ -137,11 +137,11 @@ class PracticeController extends Controller
             $data_basket = array_count_values($data_basket);
             $data_basket[$data_post] = $data_basket[$data_post] - 1;
 
-            foreach($data_basket[$data_post] != 0)
-            {
-                // DODELAT'
-                $cookieEdit = $data_basket;
-            }
+            // foreach($data_basket[$data_post] != 0)
+            // {
+            //     // DODELAT'
+            //     $cookieEdit = $data_basket;
+            // }
         }       
         else
         {
