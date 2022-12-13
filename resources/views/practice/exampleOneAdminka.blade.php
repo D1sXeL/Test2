@@ -5,36 +5,7 @@
 <div class="container">
     
 
-    @if(!isset($status))
-            
-
-        <div class="d-flex justify-content-center">
-            <form method="post" class="d-flex flex-column col-lg-4 align-items-start">
-                @csrf
-                <span class="ms-3">Логин</span>
-                <input type="text" name="login" class="w-100 my-2">
-                <span class="ms-3">Пароль</span>
-                <input type="password" name="password" class="w-100 my-2">
-                <div class="w-100 d-flex justify-content-center">
-                    <input type="submit" value="Авторизоваться" class="w-50 my-2">
-                </div>
-            </form>
-        </div>
-    @else
-        @if($status == 'error')
-            <div class="d-flex justify-content-center">
-                <form method="post" class="d-flex flex-column col-lg-4 align-items-start">
-                    @csrf
-                    <span class="ms-3">Логин</span>
-                    <input type="text" name="login" class="w-100 my-2">
-                    <span class="ms-3">Пароль</span>
-                    <input type="password" name="password" class="w-100 my-2">
-                    <div class="w-100 d-flex justify-content-center">
-                        <input type="submit" value="Авторизоваться" class="w-50 my-2">
-                    </div>
-                </form>
-            </div>
-        @else
+   
             <div>
                 <form action="admin/add">
                     <input type="submit" value="Добавить товар">
@@ -64,8 +35,7 @@
             @endforeach
         </table>
         </div>
-        @endif
-    @endif
+
     </div>
 
 @endsection

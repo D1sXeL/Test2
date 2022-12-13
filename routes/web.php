@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [App\Http\Controllers\PracticeController::class, 'exampleOneIndex']);
 
 
-Route::match(['get', 'post'], '/admin/',[App\Http\Controllers\PracticeController::class,'exampleOne']);
-Route::match(['get', 'post'], '/admin/add', [App\Http\Controllers\PracticeController::class,'exampleOneAdminAdd']);
+Route::match(['get', 'post'], '/admin/',[App\Http\Controllers\PracticeController::class,'exampleOne'])->middleware('admin');
+Route::match(['get', 'post'], '/admin/add/', [App\Http\Controllers\PracticeController::class,'exampleOneAdminAdd'])->middleware('admin');
 Route::match(['get', 'post'], '/catalog/',[App\Http\Controllers\PracticeController::class,'exampleOneCatalog']);
 Route::match(['get', 'post'], '/catalog/{id}',[App\Http\Controllers\PracticeController::class,'exampleOneCatalogId']);
 Route::get('/geolocation/', [App\Http\Controllers\PracticeController::class,'exampleOneGeolocation']);
+Route::match(['get', 'post'], '/basket/',[App\Http\Controllers\PracticeController::class,'exampleOneBasket']);
+
 
 Auth::routes();
 

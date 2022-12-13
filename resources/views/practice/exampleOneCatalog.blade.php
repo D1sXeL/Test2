@@ -88,13 +88,12 @@
                             </select>
                     </div>
 
-                    </form>
 
                     
                 </div>
                 <div class="d-flex flex-wrap">
                 @foreach($data as $key=>$value)
-                    <div class="mx-3 col-lg-2 d-flex flex-column justify-content-center align-items-center">
+                    <div class="mx-3 col-lg-3 d-flex flex-column justify-content-center align-items-center">
                         <img src="{{ $value['img_path'] }}" alt="" class="img-fluid max-size">
                         <h4>{{ $value['name'] }}</h4>
                         <span>Издатель: {{ $value['categoryName'] }}</span>
@@ -102,12 +101,14 @@
                         <span>Дата добавления: {{ $value['created_at'] }}</span>
                         <span>Количество: {{ $value['quantity'] }}</span>
                         <span><a href="/catalog/{{ $value['id'] }}">Подробнее</a></span>
-                        @if($data_cookie == 1)
+                        @auth
                             <span><a href="/catalog?basket_id={{ $value['id'] }}">В корзину</a></span>
-                        @endif
+                        @endauth
                     </div>
                 @endforeach
                 </div>
+                </form>
+
             </div>
         </div>
     
