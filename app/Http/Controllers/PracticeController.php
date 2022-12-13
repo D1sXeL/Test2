@@ -18,75 +18,35 @@ class PracticeController extends Controller
 
     public function exampleOne(Request $req)
     {
-        if($req->isMethod('Post') )
-        {
-            if($req->input('login') == "admin" and $req->input('password') == "admin88")
-            {
-                Cookie::Queue('auth', 1);
-                $data = json_decode(DB::table('orders')->get(), true);
-                return view('practice.exampleOneAdminka', ['status'=>'successfully', 'data'=>$data]);
-            }
-            else
-            {
-                return view('practice.exampleOneAdminka', ['status'=>"error"]);
-            }
-        }
-        elseif($req->isMethod('Get') and $req->cookie('auth') == 1)
-        {
-            if($req->input('id_cancel') != null)
-            {
-                DB::table('orders')->where('id', '=', $req->input('id_cancel'))->update(['status'=>'Отменен']);
-                $data = json_decode(DB::table('orders')->get(), true);
-                return view('practice.exampleOneAdminka', ['status'=>'successfully', 'data'=>$data]);
-            }
-            elseif($req->input('id_confirm') != null)
-            {
-                DB::table('orders')->where('id', '=', $req->input('id_confirm'))->update(['status'=>'Подтверждён']);
-                $data = json_decode(DB::table('orders')->get(), true);
-                return view('practice.exampleOneAdminka', ['status'=>'successfully', 'data'=>$data]);
-            }
-            else
-            {
-                $data = json_decode(DB::table('orders')->get(), true);
-                return view('practice.exampleOneAdminka', ['status'=>'successfully', 'data'=>$data]);
-            }
-        }
-        else
-        {
-            return view('practice.exampleOneAdminka');
-        }
+        $data = json_decode(DB::table('orders')->get(), true);
+        return view('practice.exampleOneAdminka', ['data'=>$data]);
     }
 
     public function exampleOneAdminAdd(Request $req){
-        if($req->cookie('auth') == 1){
-            $data = json_decode(DB::table('categories')->get(), true);
-            if($req->input('category') != '')
+        $data = json_decode(DB::table('categories')->get(), true);
+        if($req->input('category') != '')
+        {
+            $data_category = json_decode(DB::table('categories')->where('name', '=', $req->input('category'))->get(), true);
+            if(isset($data_category[0]['name']))
             {
-                $data_category = json_decode(DB::table('categories')->where('name', '=', $req->input('category'))->get(), true);
-                if(isset($data_category[0]['name']))
-                {
-                    $data = json_decode(DB::table('categories')->where('name', '=', $req->input('category'))->get(), true);
-                    \App\Models\products::create(['img_path'=>$req->input('img_path'), 'name'=>$req->input('name'), 'antagonists'=>$req->input('antagonists'), 
-                    'id_category'=> $data[0]['id'], 'price'=>$req->input('price'), 'quantity'=>$req->input('quantity')]);
-                    return redirect('/admin/');
-                }
-                else
-                {
-                    DB::table('categories')->insert(['name'=>$req->input('category')]);
-                    $data = json_decode(DB::table('categories')->where('name', '=', $req->input('category'))->get(), true);
-                    \App\Models\products::create(['img_path'=>$req->input('img_path'), 'name'=>$req->input('name'), 'antagonists'=>$req->input('antagonists'), 
-                    'id_category'=> $data[0]['id'], 'price'=>$req->input('price'), 'quantity'=>$req->input('quantity')]);
-                    return redirect('/admin/');
-                }
-                // DB::insert('insert into products (name, img_path, antagonists, category, price, quantity)');
+                $data = json_decode(DB::table('categories')->where('name', '=', $req->input('category'))->get(), true);
+                \App\Models\products::create(['img_path'=>$req->input('img_path'), 'name'=>$req->input('name'), 'antagonists'=>$req->input('antagonists'), 
+                'id_category'=> $data[0]['id'], 'price'=>$req->input('price'), 'quantity'=>$req->input('quantity')]);
+                return redirect('/admin/');
             }
             else
             {
-                return view('practice.exampleOneAdminAdd');
+                DB::table('categories')->insert(['name'=>$req->input('category')]);
+                $data = json_decode(DB::table('categories')->where('name', '=', $req->input('category'))->get(), true);
+                \App\Models\products::create(['img_path'=>$req->input('img_path'), 'name'=>$req->input('name'), 'antagonists'=>$req->input('antagonists'), 
+                'id_category'=> $data[0]['id'], 'price'=>$req->input('price'), 'quantity'=>$req->input('quantity')]);
+                return redirect('/admin/');
             }
+            // DB::insert('insert into products (name, img_path, antagonists, category, price, quantity)');
         }
-        else{
-            return redirect('/admin');
+        else
+        {
+            return view('practice.exampleOneAdminAdd');
         }
     }
 
@@ -165,5 +125,36 @@ class PracticeController extends Controller
     public function exampleOneGeolocation()
     {
         return view('practice.exampleOneGeolocation');
+    }
+
+    public function exampleOneBasket(Request $req)
+    {
+        if($req->isMethod('post'))
+        {
+            $data_post = $req->input('delId');
+            $data_basket = $req->cookie('basket_id');
+            $data_basket = explode('+', $data_basket);
+            $data_basket = array_count_values($data_basket);
+            $data_basket[$data_post] = $data_basket[$data_post] - 1;
+
+            foreach($data_basket[$data_post] != 0)
+            {
+                // DODELAT'
+                $cookieEdit = $data_basket;
+            }
+        }       
+        else
+        {
+            $data_basket = $req->cookie('basket_id');
+            $data_basket = explode('+', $data_basket);
+            $data_basket = array_count_values($data_basket);
+        }
+
+        
+
+        
+        $data = json_decode(DB::table('products')->get(), true);
+
+        return view('practice.exampleOneBasket', ['data'=>$data, 'data_basket'=>$data_basket]);
     }
 }
