@@ -135,22 +135,36 @@ class PracticeController extends Controller
             $data_basket = $req->cookie('basket_id');
             $data_basket = explode('+', $data_basket);
             $data_basket = array_count_values($data_basket);
-            $data_basket[$data_post] = $data_basket[$data_post] - 1;
 
-            // foreach($data_basket[$data_post] != 0)
-            // {
-            //     // DODELAT'
-            //     $cookieEdit = $data_basket;
-            // }
+            if(isset($data_basket[$data_post]))
+            {
+                $data_basket[$data_post] = $data_basket[$data_post] - 1;
+            }
+            $edit_cookie = "";
+            $count = 0;
+
+            foreach($data_basket as $key=>$value)
+            {
+                if($count == 0 and $value != 0)
+                {
+                    $edit_cookie .= $key;
+                    $value -= 1;  
+                    $count += 1;
+                }
+                    
+                while($value > 0)
+                {
+                    $edit_cookie .= '+'.$key;
+                    $value -= 1;
+                }
+            }
+            Cookie::Queue('basket_id', $edit_cookie);
+            return redirect('/basket');
         }       
-        else
-        {
-            $data_basket = $req->cookie('basket_id');
-            $data_basket = explode('+', $data_basket);
-            $data_basket = array_count_values($data_basket);
-        }
 
-        
+        $data_basket = $req->cookie('basket_id');
+        $data_basket = explode('+', $data_basket);
+        $data_basket = array_count_values($data_basket);
 
         
         $data = json_decode(DB::table('products')->get(), true);

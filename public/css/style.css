@@ -25,5 +25,6 @@ ul a{
 }
 
 .basket-img-size{
-  height: 200px
+  height: 100px;
+  width: 50px;
 }
