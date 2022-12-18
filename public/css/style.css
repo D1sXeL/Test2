@@ -1,0 +1,30 @@
+.animation{
+  transition: 2s;
+}
+
+ul{
+  list-style-type: none;
+}
+
+ul a{
+  text-decoration: none;
+  color: black
+}
+
+.img-size{
+  height: 400px;
+}
+
+.max-size{
+  max-height: 300px;
+}
+
+.sort-category{
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.basket-img-size{
+  height: 100px;
+  width: 50px;
+}
