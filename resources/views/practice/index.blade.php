@@ -38,14 +38,22 @@
                         <div class="carousel-item active text-center">
                             <img class="d-block w-100 img-size" src="{{ $value['img_path'] }}" alt="Первый слайд">
                             <p>Название: {{ $value['name'] }}</p>
+<<<<<<< HEAD
                             <p>Цена: {{ $value['price'] }}</p>
+=======
+                            <p>Цена: {{ $value['price'] }} рублей</p>
+>>>>>>> 048d722 (added README.md)
                             <p><a href="/catalog/{{ $value['id'] }}">Подробнее</a></p>
                         </div>
                         @else
                         <div class="carousel-item text-center">
                             <img class="d-block w-100 img-size" src="{{ $value['img_path'] }}" alt="Второй слайд">
                             <p>Название: {{ $value['name'] }}</p>
+<<<<<<< HEAD
                             <p>Цена: {{ $value['price'] }}</p>
+=======
+                            <p>Цена: {{ $value['price'] }} рублей</p>
+>>>>>>> 048d722 (added README.md)
                             <p><a href="/catalog/{{ $value['id'] }}">Подробнее</a></p>
                         </div>
                         @endif
@@ -60,7 +68,44 @@
                     </button>
                 </div>
             </div>
+<<<<<<< HEAD
         
+=======
+        </div>
+        @if($data_orders != "")
+        <div class="d-flex flex-column align-items-center justify-content-center my-5">
+            <h2 class="my-5">Ваши заказы</h2>
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>Дата</th>
+                        <th>Название</th>
+                        <th>Картинка</th>
+                        <th>Количество</th>
+                        <th>Статус</th>
+                        <th>Причина отмены</th>
+                        <th>Удалить(новые)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data_orders as $key=>$value)
+                        <tr class="text-center">
+                            <td>{{$value['updated_at']}}</td>
+                            <td>{{$value['name']}}</td>
+                            <td><img src="{{$value['img_path']}}" style="height: 150px;"></td>
+                            <td>{{$value['quantity']}}</td>
+                            <td>{{$value['status']}}</td>
+                            <td>{{$value['reason_cancel']}}</td>
+                            @if($value['status'] == "Новый")
+                                <td><a href="?id_delete={{$value['id']}}">тык</a></td>
+                            @endif
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
+>>>>>>> 048d722 (added README.md)
     </div>
 </section>  
 @endsection

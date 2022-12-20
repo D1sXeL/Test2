@@ -22,10 +22,17 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
+<<<<<<< HEAD
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 
                 <div class="d-flex justify-content-center col-lg-10 align-items-center pt-3">
+=======
+                    <img src="/public/img/logo.png">
+                </a>
+                
+                <div class="d-flex justify-content-center col-lg-10 align-items-center pt-3 pe-5">
+>>>>>>> 048d722 (added README.md)
                     <ul class="d-flex justify-content-around align-items-center">
                         <li class="px-5"><a href="/">О нас</a></li>
                         <li class="px-5"><a href="/catalog">Каталог</a></li>
@@ -64,7 +71,11 @@
                             <li class="d-flex align-items-center nav-item dropdown">
                                 <a href="/basket" class="mx-5">Корзина</a>
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+<<<<<<< HEAD
                                     {{ Auth::user()->name }}
+=======
+                                    {{ Auth::user()->login }}
+>>>>>>> 048d722 (added README.md)
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

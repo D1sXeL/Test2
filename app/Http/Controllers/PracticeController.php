@@ -10,11 +10,33 @@ use Cookie;
 
 class PracticeController extends Controller
 {
+<<<<<<< HEAD
     public function index()
     {
         $data = json_decode(DB::table('products')->orderBy('created_at', 'desc')->limit(5)->get(), true);
 
         return view('practice.index', ['data'=>$data]);
+=======
+    public function index(Request $req)
+    {
+        $data = json_decode(DB::table('products')->orderBy('created_at', 'desc')->limit(5)->get(), true);
+
+        if($req->has('id_delete'))
+        {
+            DB::table('orders')->where('id', '=', $req->input('id_delete'))->where('status', '=', 'Новый')->delete();
+            return redirect('/');
+        }
+
+        $data_orders = "";
+        
+        if(Auth::user() != null)
+        {
+            $data_orders = json_decode(DB::table('orders')->join('products', 'products.id', '=', 'id_product')->select('orders.id', 'products.name', 'products.img_path', 'orders.quantity as quantity', 'status', 'reason_cancel', 'orders.updated_at')->where('id_user', '=', $req->user()->id)->orderBy('updated_at', 'asc')->get(), true);
+        }
+        
+
+        return view('practice.index', ['data'=>$data, 'data_orders'=>$data_orders]);
+>>>>>>> 048d722 (added README.md)
     }
 
     public function adminka(Request $req)
@@ -138,6 +160,7 @@ class PracticeController extends Controller
         $sortCategory = $req->input('categorySorted');
         if($sortCategory == "Все")
         {
+<<<<<<< HEAD
             $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->where('quantity', '>', '0')->select("products.id", "products.name", "products.updated_at", "products.img_path", "products.antagonists", "products.price", "products.quantity", "categories.name as categoryName")->orderBy($sort, $optionSorted)->get(), true);
         }
         elseif($sortCategory != null){
@@ -145,6 +168,15 @@ class PracticeController extends Controller
         }
         else{
             $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->where('quantity', '>', '0')->select("products.id", "products.name", "products.updated_at", "products.img_path", "products.antagonists", "products.price", "products.quantity", "categories.name as categoryName")->orderBy($sort, $optionSorted)->get(), true); 
+=======
+            $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->where('quantity', '>', '0')->select("products.id", "products.name", "products.created_at", "products.img_path", "products.antagonists", "products.price", "products.quantity", "categories.name as categoryName")->orderBy($sort, $optionSorted)->get(), true);
+        }
+        elseif($sortCategory != null){
+            $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->where('quantity', '>', '0')->where('categories.name', '=', $sortCategory)->select("products.id", "products.name", "products.created_at", "products.img_path", "products.antagonists", "products.price", "products.quantity", "categories.name as categoryName")->orderBy($sort, $optionSorted)->get(), true);
+        }
+        else{
+            $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->where('quantity', '>', '0')->select("products.id", "products.name", "products.created_at", "products.img_path", "products.antagonists", "products.price", "products.quantity", "categories.name as categoryName")->orderBy($sort, $optionSorted)->get(), true); 
+>>>>>>> 048d722 (added README.md)
         }
 
         if(Auth::check())
@@ -168,12 +200,31 @@ class PracticeController extends Controller
                 
                 if($req->cookie('basket_id') != "")
                 {
+<<<<<<< HEAD
                     if($data_basket[$req->input('basket_id')] < $quantity[0]['quantity'])
                     {
                     $data_basket = $req->cookie('basket_id');
                     $data_basket = $data_basket.'+'.$req->input('basket_id');
                     Cookie::Queue('basket_id', $data_basket);
                     return back()->withInput(); 
+=======
+                    if(isset($data_basket[$req->input('basket_id')]))
+                    {
+                        if($data_basket[$req->input('basket_id')] < $quantity[0]['quantity'])
+                        {
+                            $data_basket = $req->cookie('basket_id');
+                            $data_basket = $data_basket.'+'.$req->input('basket_id');
+                            Cookie::Queue('basket_id', $data_basket);
+                            return back()->withInput(); 
+                        }
+                    }
+                    else
+                    {
+                        $data_basket = $req->cookie('basket_id');
+                        $data_basket = $data_basket.'+'.$req->input('basket_id');
+                        Cookie::Queue('basket_id', $data_basket);
+                        return back()->withInput();
+>>>>>>> 048d722 (added README.md)
                     }
                 }
                 else
@@ -217,7 +268,11 @@ class PracticeController extends Controller
                 return redirect('catalog/'.$id); 
             } 
         }
+<<<<<<< HEAD
         $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->select("*", "products.name", "categories.name as categoryName")->where("products.id", "=", $id)->get(), true);
+=======
+        $data = json_decode(DB::table('products')->join('categories', 'categories.id', '=', 'id_category')->select("*", 'products.id', 'products.quantity', "products.name", "categories.name as categoryName")->where("products.id", "=", $id)->get(), true);
+>>>>>>> 048d722 (added README.md)
         return view('practice.CatalogId', ['data'=>$data, 'id'=>$id]);
     }
 
@@ -228,6 +283,40 @@ class PracticeController extends Controller
 
     public function basket(Request $req)
     {
+<<<<<<< HEAD
+=======
+        if($req->has('id_delete'))
+        {
+            $data_basket = $req->cookie('basket_id');
+            $data_basket = explode('+', $data_basket);
+            $data_basket = array_count_values($data_basket);
+
+
+            $data_basket[$req->input('id_delete')] = $data_basket[$req->input('id_delete')]-1;
+
+            $edit_cookie = "";
+            $count = 0;
+
+            foreach($data_basket as $key=>$value)
+            {
+                if($count == 0 and $value != 0)
+                {
+                    $edit_cookie .= $key;
+                    $value -= 1;  
+                    $count += 1;
+                }
+                    
+                while($value > 0)
+                {
+                    $edit_cookie .= '+'.$key;
+                    $value -= 1;
+                }
+            }
+            Cookie::Queue('basket_id', $edit_cookie);
+            return redirect('/basket/');
+        }
+
+>>>>>>> 048d722 (added README.md)
         if($req->isMethod('post'))
         {
             if($req->has('basketButton'))
@@ -236,7 +325,11 @@ class PracticeController extends Controller
             }
 
 
+<<<<<<< HEAD
             $data_post = $req->input('delId');
+=======
+            // $data_post = $req->input('delId');
+>>>>>>> 048d722 (added README.md)
             $data_basket = $req->cookie('basket_id');
             $data_basket = explode('+', $data_basket);
             $data_basket = array_count_values($data_basket);
@@ -257,6 +350,7 @@ class PracticeController extends Controller
                 }
             }
 
+<<<<<<< HEAD
             if(isset($data_basket[$data_post]))
             {
                 $data_basket[$data_post] = $data_basket[$data_post] - 1;
@@ -280,6 +374,31 @@ class PracticeController extends Controller
                 }
             }
             Cookie::Queue('basket_id', $edit_cookie);
+=======
+            // if(isset($data_basket[$data_post]))
+            // {
+            //     $data_basket[$data_post] = $data_basket[$data_post] - 1;
+            // }
+            // $edit_cookie = "";
+            // $count = 0;
+
+            // foreach($data_basket as $key=>$value)
+            // {
+            //     if($count == 0 and $value != 0)
+            //     {
+            //         $edit_cookie .= $key;
+            //         $value -= 1;  
+            //         $count += 1;
+            //     }
+                    
+            //     while($value > 0)
+            //     {
+            //         $edit_cookie .= '+'.$key;
+            //         $value -= 1;
+            //     }
+            // }
+            // Cookie::Queue('basket_id', $edit_cookie);
+>>>>>>> 048d722 (added README.md)
             return redirect('/basket');
         }       
 
