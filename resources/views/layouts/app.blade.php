@@ -22,10 +22,10 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="/public/img/logo.png">
                 </a>
                 
-                <div class="d-flex justify-content-center col-lg-10 align-items-center pt-3">
+                <div class="d-flex justify-content-center col-lg-10 align-items-center pt-3 pe-5">
                     <ul class="d-flex justify-content-around align-items-center">
                         <li class="px-5"><a href="/">О нас</a></li>
                         <li class="px-5"><a href="/catalog">Каталог</a></li>
@@ -47,6 +47,8 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
+
+
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -59,9 +61,10 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="d-flex align-items-center nav-item dropdown">
+                                <a href="/basket" class="mx-5">Корзина</a>
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->login }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

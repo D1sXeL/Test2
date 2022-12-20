@@ -25,6 +25,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\Models\User::create(['name'=>'admin', 'login'=>'admin', 'surname'=>'admin', 'email'=>'admin@admin', 'password'=>Hash::make('admin88')]);
     }
 
     /**

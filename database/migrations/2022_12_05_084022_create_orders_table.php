@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_user');
             $table->timestamps();
-            $table->date('date');
-            $table->string('FIO');
-            $table->string('quantity');
+            $table->string('id_product');
+            $table->integer('quantity');
             $table->string('status');
-            $table->string('reason_cancel');
+            $table->string('reason_cancel')->nullable();
         });
     }
 
